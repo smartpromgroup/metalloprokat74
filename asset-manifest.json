@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/metalloprokat74/static/css/main.56c55576.css",
+    "main.css": "/metalloprokat74/static/css/main.e21472b0.css",
     "main.js": "/metalloprokat74/static/js/main.ea949f54.js",
     "static/js/787.45428a1e.chunk.js": "/metalloprokat74/static/js/787.45428a1e.chunk.js",
     "static/media/metal_rolling_background.jpg": "/metalloprokat74/static/media/metal_rolling_background.c0bd31772de4d2d29cbe.jpg",
@@ -50,12 +50,12 @@
     "static/media/roboto-greek-ext-700-normal.woff2": "/metalloprokat74/static/media/roboto-greek-ext-700-normal.9674bc0ae12c2551d9d1.woff2",
     "static/media/square.svg": "/metalloprokat74/static/media/square.2169604f04fd278266f53eacf2fc187b.svg",
     "index.html": "/metalloprokat74/index.html",
-    "main.56c55576.css.map": "/metalloprokat74/static/css/main.56c55576.css.map",
+    "main.e21472b0.css.map": "/metalloprokat74/static/css/main.e21472b0.css.map",
     "main.ea949f54.js.map": "/metalloprokat74/static/js/main.ea949f54.js.map",
     "787.45428a1e.chunk.js.map": "/metalloprokat74/static/js/787.45428a1e.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.56c55576.css",
+    "static/css/main.e21472b0.css",
     "static/js/main.ea949f54.js"
   ]
 }
