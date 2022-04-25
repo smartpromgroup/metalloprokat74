@@ -2,7 +2,7 @@
   "name": "spg",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://smartpromgroup.github.io/metalloprokat74",
+  "homepage": "https://smartpromgroup.github.io/metalloprokat74",
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
