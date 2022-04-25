@@ -1,0 +1,64 @@
+* { 
+    box-sizing: border-box;
+}
+
+html, body {
+    min-height: 100%;
+}
+
+.background {
+    position: absolute;
+    background: no-repeat center/cover url(../public/media/images/metal_rolling_background.jpg);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    filter: blur(2px);
+    z-index: -1;
+    // transform: rotate(180deg);
+}
+
+.app {
+    padding-top: 3%;
+    padding-left: 3%;
+    padding-right: 3%;
+}
+
+.products {
+    margin-bottom: 50px;
+}
+
+.product-icon {
+    display: flex;
+    height: inherit;
+    width: inherit;
+}
+
+.products__button {
+    color: white;
+}
+
+.main-page__header1 {
+    text-align: center;
+}
+
+.main_page__phone-numbers {
+    text-align: center;
+}
+
+.main-page__emails {
+    text-align: center;
+}
+
+.main-page__header2 {
+    text-align: center;
+}
+
+.phone-numbers {
+    text-align: center;
+}
+
+.phone-numbers__phone-number {
+    text-align: center;
+    display: block;
+}
