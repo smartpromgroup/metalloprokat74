@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/metalloprokat74/static/css/main.4cb39326.css",
-    "main.js": "/metalloprokat74/static/js/main.1747fde7.js",
+    "main.js": "/metalloprokat74/static/js/main.ae3bca63.js",
     "static/js/787.45428a1e.chunk.js": "/metalloprokat74/static/js/787.45428a1e.chunk.js",
     "static/media/metal_rolling_background.jpg": "/metalloprokat74/static/media/metal_rolling_background.c0bd31772de4d2d29cbe.jpg",
     "static/media/roboto-all-500-normal.woff": "/metalloprokat74/static/media/roboto-all-500-normal.52cb737b682eb9661ee1.woff",
@@ -51,11 +51,11 @@
     "static/media/square.svg": "/metalloprokat74/static/media/square.2169604f04fd278266f53eacf2fc187b.svg",
     "index.html": "/metalloprokat74/index.html",
     "main.4cb39326.css.map": "/metalloprokat74/static/css/main.4cb39326.css.map",
-    "main.1747fde7.js.map": "/metalloprokat74/static/js/main.1747fde7.js.map",
+    "main.ae3bca63.js.map": "/metalloprokat74/static/js/main.ae3bca63.js.map",
     "787.45428a1e.chunk.js.map": "/metalloprokat74/static/js/787.45428a1e.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.4cb39326.css",
-    "static/js/main.1747fde7.js"
+    "static/js/main.ae3bca63.js"
   ]
 }
