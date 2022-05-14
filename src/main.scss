@@ -6,6 +6,8 @@ html, body {
     min-height: 100vh;
 }
 
+
+
 body {
 }
 
@@ -23,6 +25,13 @@ body {
     padding-top: 3%;
     padding-left: 3%;
     padding-right: 3%;
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
 }
 
 .products {

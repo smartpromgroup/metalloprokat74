@@ -1,218 +1,391 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 import './App.css';
-import Button from '@mui/material/Button'
-import { createTheme, Grid, Link, Palette, PaletteColorOptions, PaletteOptions, Popover, responsiveFontSizes, SimplePaletteColorOptions, SvgIcon, Theme, ThemeOptions, ThemeProvider, Typography } from '@mui/material';
+import Button from '@mui/material/Button';
+import {
+	Box,
+	Card,
+	CardActionArea,
+	CardContent,
+	CardMedia,
+	ClickAwayListener,
+	ClickAwayListenerProps,
+	createTheme,
+	Fade,
+	Link,
+	Palette,
+	PaletteColorOptions,
+	PaletteOptions,
+	Popover,
+	Popper,
+	responsiveFontSizes,
+	SimplePaletteColorOptions,
+	Stack,
+	SvgIcon,
+	Theme,
+	ThemeOptions,
+	ThemeProvider,
+	Typography,
+  useMediaQuery,
+} from '@mui/material';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import { FC, useState } from 'react';
 import { ReactComponent as PipesSvg } from './media/images/pipes.svg';
-import { ReactComponent as SheetSvg } from './media/images/sheet.svg';
-import { ReactComponent as ChannelSvg } from './media/images/channel.svg';
-import { ReactComponent as CornerSvg } from './media/images/corner.svg';
-import { ReactComponent as BeamSvg } from './media/images/beam.svg';
+import { ReactComponent as SheetsSvg } from './media/images/sheet.svg';
+import { ReactComponent as ChannelsSvg } from './media/images/channel.svg';
+import { ReactComponent as CornersSvg } from './media/images/corner.svg';
+import { ReactComponent as BeamsSvg } from './media/images/beam.svg';
 import { ReactComponent as FittingsSvg } from './media/images/fittings.svg';
-import { ReactComponent as WireSvg } from './media/images/wire.svg';
-import { ReactComponent as RoundSvg } from './media/images/round.svg';
-import { ReactComponent as HexagonSvg } from './media/images/hexagon.svg';
-import { ReactComponent as SquareSvg } from './media/images/square.svg';
-import { ReactComponent as StripSvg } from './media/images/strip.svg';
+import { ReactComponent as WiresSvg } from './media/images/wire.svg';
+import { ReactComponent as RoundsSvg } from './media/images/round.svg';
+import { ReactComponent as HexagonsSvg } from './media/images/hexagon.svg';
+import { ReactComponent as SquaresSvg } from './media/images/square.svg';
+import { ReactComponent as StripsSvg } from './media/images/strip.svg';
 import { ReactComponent as RailsSvg } from './media/images/rails.svg';
-import { ReactComponent as MeshSvg } from './media/images/mesh.svg';
+import { ReactComponent as ForgingSvg } from './media/images/round.svg';
+import { ReactComponent as MeshesSvg } from './media/images/mesh.svg';
 import './main.scss';
 import { blue, red } from '@mui/material/colors';
-
-
+import { fontSize } from '@mui/system';
 
 const App: FC = () => {
-  const pageName = "main-page"
+	const pageName = 'main-page';
 
-  const [pipesAnchor, setPipesAnchor] = useState<HTMLElement | null>(null);
-  const [sheetAnchor, setSheetAnchor] = useState<HTMLElement | null>(null);
-  const [channelAnchor, setChannelAnchor] = useState<HTMLElement | null>(null);
-  const [cornerAnchor, setCornerAnchor] = useState<HTMLElement | null>(null);
-  const [beamAnchor, setBeamAnchor] = useState<HTMLElement | null>(null);
-  const [fittingsAnchor, setFittingsAnchor] = useState<HTMLElement | null>(null);
-  const [wireAnchor, setWireAnchor] = useState<HTMLElement | null>(null);
-  const [roundAnchor, setRoundAnchor] = useState<HTMLElement | null>(null);
-  const [hexatonAnchor, setHexatonAnchor] = useState<HTMLElement | null>(null);
-  const [squareAnchor, setSquareAnchor] = useState<HTMLElement | null>(null);
-  const [stripAnchor, setStripAnchor] = useState<HTMLElement | null>(null);
-  const [railsAnchor, setRailsAnchor] = useState<HTMLElement | null>(null);
-  const [forgingAnchor, setForgingAnchor] = useState<HTMLElement | null>(null);
-  const [meshAnchor, setMeshAnchor] = useState<HTMLElement | null>(null);
+	const [pipesAnchor, setPipesAnchor] = useState<HTMLElement | null>(null);
+	const [sheetsAnchor, setSheetsAnchor] = useState<HTMLElement | null>(null);
+	const [channelsAnchor, setChannelsAnchor] = useState<HTMLElement | null>(
+		null
+	);
+	const [cornersAnchor, setCornersAnchor] = useState<HTMLElement | null>(null);
+	const [beamsAnchor, setBeamsAnchor] = useState<HTMLElement | null>(null);
+	const [fittingsAnchor, setFittingsAnchor] = useState<HTMLElement | null>(
+		null
+	);
+	const [wiresAnchor, setWiresAnchor] = useState<HTMLElement | null>(null);
+	const [roundsAnchor, setRoundsAnchor] = useState<HTMLElement | null>(null);
+	const [hexagonsAnchor, setHexagonsAnchor] = useState<HTMLElement | null>(
+		null
+	);
+	const [squaresAnchor, setSquaresAnchor] = useState<HTMLElement | null>(null);
+	const [stripsAnchor, setStripsAnchor] = useState<HTMLElement | null>(null);
+	const [railsAnchor, setRailsAnchor] = useState<HTMLElement | null>(null);
+	const [forgingAnchor, setForgingAnchor] = useState<HTMLElement | null>(null);
+	const [meshesAnchor, setMeshesAnchor] = useState<HTMLElement | null>(null);
 
-  interface DefaultPaletteOptions extends PaletteOptions {
-    primary?: SimplePaletteColorOptions;
-    secondary?: SimplePaletteColorOptions;
-  }
+	interface DefaultPaletteOptions extends PaletteOptions {
+		primary?: SimplePaletteColorOptions;
+		secondary?: SimplePaletteColorOptions;
+	}
+
+	const palette: DefaultPaletteOptions = {
+		primary: {
+			main: '#494942',
+			light: '#75746d',
+			dark: '#22221b',
+		},
+		secondary: {
+			main: '#eceff1',
+			light: '#ffffff',
+			dark: '#babdbe',
+		},
+		text: {
+			primary: '#ffffff',
+			secondary: '#000000',
+		},
+		action: {
+			active: blue[400],
+		},
+	};
+
+	let theme = createTheme({
+		palette: palette,
+		typography: {
+			allVariants: {
+				color: palette.text?.primary,
+			},
+		},
+		components: {
+			MuiPopover: {
+				styleOverrides: {
+					paper: {
+						backgroundColor: palette.secondary?.main,
+						color: red[200],
+					},
+					root: {
+						color: red[200],
+					},
+				},
+			},
+			MuiLink: {
+				styleOverrides: {
+					root: {
+						color: palette.action?.active,
+					},
+				},
+			},
+			MuiListItemText: {
+				styleOverrides: {
+					primary: {
+						color: palette.text?.secondary,
+					},
+				},
+			},
+			MuiCard: {
+				styleOverrides: {
+					root: {
+						backgroundColor: palette.primary?.main,
+					},
+				},
+			}
+		},
+	});
+
+	theme = responsiveFontSizes(theme, {});
+
   
-  const palette: DefaultPaletteOptions =  {
-      primary: {
-        main: '#494942',
-        light: '#75746d',
-        dark: '#22221b',
-      },
-      secondary: {
-        main: '#eceff1',
-        light: '#ffffff',
-        dark: '#babdbe',
-      },
-      text: {
-        primary: '#ffffff',
-        secondary: '#000000',
-      },
-      action: {
-        active: blue[400]
-      }
-    };
+  const xsMediaQuery = useMediaQuery(theme.breakpoints.up('xs'));
+  const smMediaQuery = useMediaQuery(theme.breakpoints.up('sm'));
+  const mdMediaQuery = useMediaQuery(theme.breakpoints.up('md'));
 
-  let theme = createTheme({
-    palette: palette,
-    typography: {
-      allVariants: {
-        color: palette.text?.primary
-      }
-    },
-    components: {
-      MuiPopover: {
-        styleOverrides: {
-          paper: {
-            backgroundColor: palette.secondary?.main,
-            color: red[200]
-          },
-          root: {
-            color: red[200],
-          },
-        }
-      },
-      MuiLink: {
-        styleOverrides: {
-          root: {
-            color: palette.action?.active
-          }
-        }
-      },
-      MuiListItemText: {
-        styleOverrides: {
-          primary: {
-            color: palette.text?.secondary
-          }
-        }
-      }
-    },
-  });
+	const getPopoverOnClickListenerToSetAnchor = (
+		setter: React.Dispatch<React.SetStateAction<HTMLElement | null>>
+	) => {
+		var listener: React.MouseEventHandler<HTMLButtonElement> = (event) => {
+			setter(event.currentTarget);
+		};
+		return listener;
+	};
 
-  theme = responsiveFontSizes(theme, {
-
-  });
-  
-
-
-  const getPopoverOnClickListenerToSetAnchor = (setter: React.Dispatch<React.SetStateAction<HTMLElement | null>>) => {
-    var listener: React.MouseEventHandler<HTMLButtonElement> = (event) => {
-      setter(event.currentTarget);
+	const getPopperOnClickAwayListener = (
+    anchor: HTMLElement | null,
+		setter: React.Dispatch<React.SetStateAction<HTMLElement | null>>
+	) => {
+    var listener = (event: Event | React.SyntheticEvent) => {
+      if(event.currentTarget !== anchor) {
+        setter(null);
+      } 
     }
-    return listener;
-  }
+		return listener;
+	};
 
-  const getPopoverOnCloseListener = (setter: React.Dispatch<React.SetStateAction<HTMLElement | null>>) => {
-    return () => {
-      setter(null);
-    }
-  }
+	const productNames = [
+		'ТРУБЫ',
+		'ЛИСТЫ',
+		'ШВЕЛЛЕРЫ',
+		'УГОЛОКИ',
+		'БАЛКИ',
+		'АРМАТУРЫ',
+		'ПРОВОЛОКА',
+		'КРУГИ',
+		'ШЕСТИГРАННИКИ',
+		'КВАДРАТЫ',
+		'ПОЛОСЫ',
+		'РЕЛЬСЫ',
+		'ПОКОВКА',
+		'СЕТКИ',
+	];
+
+	const productSvgs = [
+		PipesSvg,
+		SheetsSvg,
+		ChannelsSvg,
+		CornersSvg,
+		BeamsSvg,
+		FittingsSvg,
+		WiresSvg,
+		RoundsSvg,
+		HexagonsSvg,
+		SquaresSvg,
+		StripsSvg,
+		RailsSvg,
+    ForgingSvg,
+		MeshesSvg,
+	];
+
+	const pipeTypes = [
+		'Водогазопроводные',
+		'Электросварная',
+		'Профильные',
+		'Бесшовные',
+		'Нержавеющие',
+		'Котельные',
+	];
+	const sheetTypes = [
+		'Горячетканные',
+		'Холоднотканые',
+		'Рифлёные',
+		'ПВЛ',
+		'Нержавеющие',
+		'Оцинкованные',
+	];
+	const channelTypes = ['Обычные', 'Гнутые'];
+	const cornerTypes = ['Равнополочные', 'Неравнополочные'];
+	const beamTypes = ['Двутавровые'];
+	const fittingTypes = [
+		'Стальные',
+		'Оцинкованные',
+		'Нержавеющие',
+		'Плетёная рабица',
+	];
+	const wireTypes = ['Стальная', 'Оцинкованная', 'Нержавеющая', 'Нихромовая'];
+	const roundTypes = ['Стальные', 'Нержавеющие'];
+	const hexagonTypes = ['Стальные', 'Нержавеющие'];
+	const squareTypes = ['Стальные', 'Нержавеющие'];
+	const stripTypes = ['Горячетканные', 'Холоднотканные'];
+	const railsTypes = ['Крановые', 'Для широкой колеи', 'Для узкой колеи'];
+	const forgingTypes = ['Круглая', 'Квадратная'];
+	const meshTypes = ['Сварные', 'Тканые', 'Нержавеющие', 'Плетёная рабица'];
+
+	const productTypes = [
+		pipeTypes,
+		sheetTypes,
+		channelTypes,
+		cornerTypes,
+		beamTypes,
+		fittingTypes,
+		wireTypes,
+		roundTypes,
+		hexagonTypes,
+		squareTypes,
+		stripTypes,
+		railsTypes,
+		forgingTypes,
+		meshTypes,
+	];
+
+	const productPopperAnchorGetters = [ () => pipesAnchor, () => sheetsAnchor, () => channelsAnchor, () => cornersAnchor, () => beamsAnchor, () => fittingsAnchor, () => wiresAnchor, () => roundsAnchor, () => hexagonsAnchor, () => squaresAnchor, () => stripsAnchor, () => railsAnchor, () => forgingAnchor, () => meshesAnchor ];
+
+	const productPopperAnchorSetters = [
+		setPipesAnchor,
+		setSheetsAnchor,
+		setChannelsAnchor,
+		setCornersAnchor,
+		setBeamsAnchor,
+		setFittingsAnchor,
+		setWiresAnchor,
+		setRoundsAnchor,
+		setHexagonsAnchor,
+		setSquaresAnchor,
+		setStripsAnchor,
+		setRailsAnchor,
+		setForgingAnchor,
+		setMeshesAnchor,
+	];
 
 
 
-  return (
-    <ThemeProvider theme={theme}>
-    <div className="app">
-      <div className="background" />
-      <Typography variant='h1' className={`header1 ${pageName}__header1`} mb="50px" sx={{
-        fontSize: {
-          xs: '2rem',
-          sm: '3rem',
-          md: '4rem',
-          lg: '5rem',
-          xl: '6rem'
-        }
-      }}>
-        Металлопрокат в Челябинске
-      </Typography>
-      <main>
-        <Grid container className="products" spacing={2}>
-          <Grid item xs >
-            <Button
-              size='large'
-              className='products__button'
-              startIcon={<SvgIcon component={PipesSvg} inheritViewBox={true} />}
-              variant='contained'
-              onClick={getPopoverOnClickListenerToSetAnchor(setPipesAnchor)}
-            >
-              <Typography>
-                Трубы
-              </Typography>
-            </Button>
-            <Popover
+	return (
+		<ThemeProvider theme={theme}>
+			<div className="app">
+				<div className="background" />
+				<Box className="title" sx={{display: 'flex', gap: '0.8rem', flexDirection: mdMediaQuery ? 'row' : 'column'}}>
+					<img src={process.env.PUBLIC_URL + '/icon-144x144.png'} />
+					<Typography
+						variant="h1"
+						className={`header1 ${pageName}__header1`}
+						sx={{
+							fontSize: {
+								xs: '2rem',
+								sm: '3rem',
+								md: '3rem',
+								lg: '4rem',
+								xl: '6rem',
+							},
+						}}
+					>
+						Металлопрокат в Челябинске
+					</Typography>
+				</Box>
+
+				<main>
+					<Stack
+						className="products"
+						spacing={5}
+						sx={{ justifyContent: 'center', width: mdMediaQuery ? '50%' : '80%', margin: '0 auto' }}
+					>
+						{productNames.map((productName, i) => (
+							<div className="product">
+								<Card className="product-card products__product-card">
+									<CardActionArea
+										onClick={getPopoverOnClickListenerToSetAnchor(
+											productPopperAnchorSetters[i]
+										)}
+									>
+										<CardContent
+											sx={{
+												display: 'flex',
+												alignItems: 'center',
+												textAlign: 'center',
+                        fontSize: '55px',
+                        gap: '0.5rem',
+											}}
+										>
+											<SvgIcon
+												component={productSvgs[i]}
+												inheritViewBox={true}
+												fontSize="inherit"
+                        sx={{ flexShrink: '1'}}
+											/>
+											<Typography variant={!smMediaQuery ? "h6" : "h5"} sx={{ flexGrow: '1'}} >
+												{productName}
+											</Typography>
+											<SvgIcon
+												component={productSvgs[i]}
+												inheritViewBox={true}
+												fontSize="inherit"
+                        sx={{flexShrink: '1'}}
+											/>
+										</CardContent>
+									</CardActionArea>
+								</Card>
+								<Popper
+									open={Boolean(productPopperAnchorGetters[i]())}
+									anchorEl={productPopperAnchorGetters[i]()}
+									transition
+								>
+									{({ TransitionProps }) => (
+										<ClickAwayListener
+											onClickAway={getPopperOnClickAwayListener(productPopperAnchorGetters[i](), productPopperAnchorSetters[i])}
+										>
+											<Fade {...TransitionProps} timeout={350}>
+												<Box sx={{ border: 1, p: 1, bgcolor: 'background.paper' }}>
+                        <List>
+													{productTypes[i].map((productType) => (
+														<ListItem>
+															<ListItemText primary={productType} />
+														</ListItem>
+													))}
+												</List>
+                        </Box>
+											</Fade>
+										</ClickAwayListener>
+									)}
+								</Popper>
+							</div>
+						))}
+
+						{/* <div className="product">
+          <Card className='product-card products__product-card'>
+              <CardActionArea onClick={getPopoverOnClickListenerToSetAnchor(setPipesAnchor)}>
+                  <CardContent sx={{ display: "flex", alignItems: "center", textAlign: "center", fontSize: theme.typography.h2.fontSize?.toString()}}>
+                    <SvgIcon component={PipesSvg} inheritViewBox={true} fontSize='inherit' />
+                    <Typography variant='h2' sx={{flexGrow: "1"}}>
+                    Листы
+                    </Typography>
+                    <SvgIcon component={PipesSvg} inheritViewBox={true} fontSize='inherit' />
+                  </CardContent>
+              </CardActionArea>
+            </Card>
+            <Popper
               open={Boolean(pipesAnchor)}
-              onClose={getPopoverOnCloseListener(setPipesAnchor)}
               anchorEl={pipesAnchor}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "center"
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "center"
-              }}
+              transition
             >
-              <List>
-                <ListItem>
-                  <ListItemText primary="Водогазопроводные"/>
-                </ListItem>
-                <ListItem>
-                  <ListItemText primary="Электросварная" />
-                </ListItem>
-                <ListItem>
-                  <ListItemText primary="Профильные" />
-                </ListItem>
-                <ListItem>
-                  <ListItemText primary="Бесшовные" />
-                </ListItem>
-                <ListItem>
-                  <ListItemText primary="Нержавеющие" />
-                </ListItem>
-                <ListItem>
-                  <ListItemText primary="Котельные" />
-                </ListItem>
-              </List>
-            </Popover>
-          </Grid>
-
-          <Grid item xs >
-            <Button
-              size='large'
-              className='products__button'
-              startIcon={<SvgIcon component={SheetSvg} inheritViewBox={true} />}
-              variant='contained'
-              onClick={getPopoverOnClickListenerToSetAnchor(setSheetAnchor)}
-            >
-              <Typography>Листы</Typography>
-            </Button>
-            <Popover
-              open={Boolean(sheetAnchor)}
-              onClose={getPopoverOnCloseListener(setSheetAnchor)}
-              anchorEl={sheetAnchor}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "center"
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "center"
-              }}
-            >
-              <List>
+                {({ TransitionProps }) => (
+                  <ClickAwayListener onClickAway={getPopoverOnCloseListener(setPipesAnchor)}>
+                  <Fade {...TransitionProps} timeout={350}>
+                    <List>
                 <ListItem>
                   <ListItemText primary="Горячетканные" 
                    />
@@ -233,32 +406,34 @@ const App: FC = () => {
                   <ListItemText primary="Оцинкованные" />
                 </ListItem>
               </List>
-            </Popover>
-          </Grid>
+                  </Fade>
+                  </ClickAwayListener>
+                )}
+               
+            </Popper>
+          </div>
 
-          <Grid item xs >
-            <Button
-              size='large'
-              variant='contained'
-              startIcon={<SvgIcon component={ChannelSvg} inheritViewBox={true} />}
-              onClick={getPopoverOnClickListenerToSetAnchor(setChannelAnchor)}
+          <div className="product">
+          <Card className='product-card products__product-card'>
+              <CardActionArea onClick={getPopoverOnClickListenerToSetAnchor(setPipesAnchor)}>
+                  <CardContent sx={{ display: "flex", alignItems: "center", textAlign: "center", fontSize: theme.typography.h2.fontSize?.toString()}}>
+                    <SvgIcon component={PipesSvg} inheritViewBox={true} fontSize='inherit' />
+                    <Typography variant='h2' sx={{flexGrow: "1"}}>
+                    Швеллера
+                    </Typography>
+                    <SvgIcon component={PipesSvg} inheritViewBox={true} fontSize='inherit' />
+                  </CardContent>
+              </CardActionArea>
+            </Card>
+            <Popper
+              open={Boolean(pipesAnchor)}
+              anchorEl={pipesAnchor}
+              transition
             >
-              <Typography>Швеллера</Typography>
-            </Button>
-            <Popover
-              open={Boolean(channelAnchor)}
-              onClose={getPopoverOnCloseListener(setChannelAnchor)}
-              anchorEl={channelAnchor}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "center"
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "center"
-              }}
-            >
-              <List>
+                {({ TransitionProps }) => (
+                  <ClickAwayListener onClickAway={getPopoverOnCloseListener(setPipesAnchor)}>
+                  <Fade {...TransitionProps} timeout={350}>
+                  <List>
                 <ListItem>
                   <ListItemText primary="Обычный" />
                 </ListItem>
@@ -266,32 +441,34 @@ const App: FC = () => {
                   <ListItemText primary="Гнутый" />
                 </ListItem>
               </List>
-            </Popover>
-          </Grid>
+                  </Fade>
+                  </ClickAwayListener>
+                )}
+               
+            </Popper>
+          </div>
 
-          <Grid item xs >
-            <Button
-              size='large'
-              variant='contained'
-              startIcon={<SvgIcon component={CornerSvg} inheritViewBox={true} />}
-              onClick={getPopoverOnClickListenerToSetAnchor(setCornerAnchor)}
+          <div className="product">
+          <Card className='product-card products__product-card'>
+              <CardActionArea onClick={getPopoverOnClickListenerToSetAnchor(setPipesAnchor)}>
+                  <CardContent sx={{ display: "flex", alignItems: "center", textAlign: "center", fontSize: theme.typography.h2.fontSize?.toString()}}>
+                    <SvgIcon component={PipesSvg} inheritViewBox={true} fontSize='inherit' />
+                    <Typography variant='h2' sx={{flexGrow: "1"}}>
+                    Уголок
+                    </Typography>
+                    <SvgIcon component={PipesSvg} inheritViewBox={true} fontSize='inherit' />
+                  </CardContent>
+              </CardActionArea>
+            </Card>
+            <Popper
+              open={Boolean(pipesAnchor)}
+              anchorEl={pipesAnchor}
+              transition
             >
-              <Typography>Уголок</Typography>
-            </Button>
-            <Popover
-              open={Boolean(cornerAnchor)}
-              onClose={getPopoverOnCloseListener(setCornerAnchor)}
-              anchorEl={cornerAnchor}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "center"
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "center"
-              }}
-            >
-              <List>
+                {({ TransitionProps }) => (
+                  <ClickAwayListener onClickAway={getPopoverOnCloseListener(setPipesAnchor)}>
+                  <Fade {...TransitionProps} timeout={350}>
+                  <List>
                 <ListItem>
                   <ListItemText primary="Равнополочный" />
                 </ListItem>
@@ -299,62 +476,66 @@ const App: FC = () => {
                   <ListItemText primary="Неравнополочный" />
                 </ListItem>
               </List>
-            </Popover>
-          </Grid>
+                  </Fade>
+                  </ClickAwayListener>
+                )}
+               
+            </Popper>
+          </div>
 
-          <Grid item xs >
-            <Button
-              size='large'
-              variant='contained'
-              startIcon={<SvgIcon component={BeamSvg} inheritViewBox={true} />}
-              onClick={getPopoverOnClickListenerToSetAnchor(setBeamAnchor)}
+          <div className="product">
+          <Card className='product-card products__product-card'>
+              <CardActionArea onClick={getPopoverOnClickListenerToSetAnchor(setPipesAnchor)}>
+                  <CardContent sx={{ display: "flex", alignItems: "center", textAlign: "center", fontSize: theme.typography.h2.fontSize?.toString()}}>
+                    <SvgIcon component={PipesSvg} inheritViewBox={true} fontSize='inherit' />
+                    <Typography variant='h2' sx={{flexGrow: "1"}}>
+                    Балка
+                    </Typography>
+                    <SvgIcon component={PipesSvg} inheritViewBox={true} fontSize='inherit' />
+                  </CardContent>
+              </CardActionArea>
+            </Card>
+            <Popper
+              open={Boolean(pipesAnchor)}
+              anchorEl={pipesAnchor}
+              transition
             >
-              <Typography>Балка</Typography>
-            </Button>
-            <Popover
-              open={Boolean(beamAnchor)}
-              onClose={getPopoverOnCloseListener(setBeamAnchor)}
-              anchorEl={beamAnchor}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "center"
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "center"
-              }}
-            >
-              <List>
+                {({ TransitionProps }) => (
+                  <ClickAwayListener onClickAway={getPopoverOnCloseListener(setPipesAnchor)}>
+                  <Fade {...TransitionProps} timeout={350}>
+                  <List>
                 <ListItem>
                   <ListItemText primary="Двутавровая" />
                 </ListItem>
               </List>
-            </Popover>
-          </Grid>
+                  </Fade>
+                  </ClickAwayListener>
+                )}
+               
+            </Popper>
+          </div>
 
-          <Grid item xs >
-            <Button
-              size='large'
-              variant='contained'
-              startIcon={<SvgIcon component={WireSvg} inheritViewBox={true} />}
-              onClick={getPopoverOnClickListenerToSetAnchor(setWireAnchor)}
+          <div className="product">
+          <Card className='product-card products__product-card'>
+              <CardActionArea onClick={getPopoverOnClickListenerToSetAnchor(setPipesAnchor)}>
+                  <CardContent sx={{ display: "flex", alignItems: "center", textAlign: "center", fontSize: theme.typography.h2.fontSize?.toString()}}>
+                    <SvgIcon component={PipesSvg} inheritViewBox={true} fontSize='inherit' />
+                    <Typography variant='h2' sx={{flexGrow: "1"}}>
+                    Проволока
+                    </Typography>
+                    <SvgIcon component={PipesSvg} inheritViewBox={true} fontSize='inherit' />
+                  </CardContent>
+              </CardActionArea>
+            </Card>
+            <Popper
+              open={Boolean(pipesAnchor)}
+              anchorEl={pipesAnchor}
+              transition
             >
-              <Typography>Проволока</Typography>
-            </Button>
-            <Popover
-              open={Boolean(wireAnchor)}
-              onClose={getPopoverOnCloseListener(setWireAnchor)}
-              anchorEl={wireAnchor}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "center"
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "center"
-              }}
-            >
-              <List>
+                {({ TransitionProps }) => (
+                  <ClickAwayListener onClickAway={getPopoverOnCloseListener(setPipesAnchor)}>
+                  <Fade {...TransitionProps} timeout={350}>
+                  <List>
                 <ListItem>
                   <ListItemText primary="Стальная" />
                 </ListItem>
@@ -368,32 +549,34 @@ const App: FC = () => {
                   <ListItemText primary="Плетёная рабица" />
                 </ListItem>
               </List>
-            </Popover>
-          </Grid>
+                  </Fade>
+                  </ClickAwayListener>
+                )}
+               
+            </Popper>
+          </div>
 
-          <Grid item xs >
-            <Button
-              size='large'
-              variant='contained'
-              startIcon={<SvgIcon component={FittingsSvg} inheritViewBox={true} />}
-              onClick={getPopoverOnClickListenerToSetAnchor(setFittingsAnchor)}
+          <div className="product">
+          <Card className='product-card products__product-card'>
+              <CardActionArea onClick={getPopoverOnClickListenerToSetAnchor(setPipesAnchor)}>
+                  <CardContent sx={{ display: "flex", alignItems: "center", textAlign: "center", fontSize: theme.typography.h2.fontSize?.toString()}}>
+                    <SvgIcon component={PipesSvg} inheritViewBox={true} fontSize='inherit' />
+                    <Typography variant='h2' sx={{flexGrow: "1"}}>
+                    Арматура
+                    </Typography>
+                    <SvgIcon component={PipesSvg} inheritViewBox={true} fontSize='inherit' />
+                  </CardContent>
+              </CardActionArea>
+            </Card>
+            <Popper
+              open={Boolean(pipesAnchor)}
+              anchorEl={pipesAnchor}
+              transition
             >
-              <Typography>Арматура</Typography>
-            </Button>
-            <Popover
-              open={Boolean(fittingsAnchor)}
-              onClose={getPopoverOnCloseListener(setFittingsAnchor)}
-              anchorEl={fittingsAnchor}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "center"
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "center"
-              }}
-            >
-              <List>
+                {({ TransitionProps }) => (
+                  <ClickAwayListener onClickAway={getPopoverOnCloseListener(setPipesAnchor)}>
+                  <Fade {...TransitionProps} timeout={350}>
+                  <List>
                 <ListItem>
                   <ListItemText primary="А1" />
                 </ListItem>
@@ -401,32 +584,34 @@ const App: FC = () => {
                   <ListItemText primary="А3" />
                 </ListItem>
               </List>
-            </Popover>
-          </Grid>
+                  </Fade>
+                  </ClickAwayListener>
+                )}
+               
+            </Popper>
+          </div>
 
-          <Grid item xs >
-            <Button
-              size='large'
-              variant='contained'
-              startIcon={<SvgIcon component={WireSvg} inheritViewBox={true} />}
-              onClick={getPopoverOnClickListenerToSetAnchor(setRoundAnchor)}
+          <div className="product">
+          <Card className='product-card products__product-card'>
+              <CardActionArea onClick={getPopoverOnClickListenerToSetAnchor(setPipesAnchor)}>
+                  <CardContent sx={{ display: "flex", alignItems: "center", textAlign: "center", fontSize: theme.typography.h2.fontSize?.toString()}}>
+                    <SvgIcon component={PipesSvg} inheritViewBox={true} fontSize='inherit' />
+                    <Typography variant='h2' sx={{flexGrow: "1"}}>
+                    Проволока
+                    </Typography>
+                    <SvgIcon component={PipesSvg} inheritViewBox={true} fontSize='inherit' />
+                  </CardContent>
+              </CardActionArea>
+            </Card>
+            <Popper
+              open={Boolean(pipesAnchor)}
+              anchorEl={pipesAnchor}
+              transition
             >
-              <Typography>Проволока</Typography>
-            </Button>
-            <Popover
-              open={Boolean(roundAnchor)}
-              onClose={getPopoverOnCloseListener(setRoundAnchor)}
-              anchorEl={roundAnchor}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "center"
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "center"
-              }}
-            >
-              <List>
+                {({ TransitionProps }) => (
+                  <ClickAwayListener onClickAway={getPopoverOnCloseListener(setPipesAnchor)}>
+                  <Fade {...TransitionProps} timeout={350}>
+                  <List>
                 <ListItem>
                   <ListItemText primary="Стальной" />
                 </ListItem>
@@ -434,32 +619,34 @@ const App: FC = () => {
                   <ListItemText primary="Нержавеющий" />
                 </ListItem>
               </List>
-            </Popover>
-          </Grid>
+                  </Fade>
+                  </ClickAwayListener>
+                )}
+               
+            </Popper>
+          </div>
 
-          <Grid item xs >
-            <Button
-              size='large'
-              variant='contained'
-              startIcon={<SvgIcon component={RoundSvg} inheritViewBox={true} />}
-              onClick={getPopoverOnClickListenerToSetAnchor(setRoundAnchor)}
+          <div className="product">
+          <Card className='product-card products__product-card'>
+              <CardActionArea onClick={getPopoverOnClickListenerToSetAnchor(setPipesAnchor)}>
+                  <CardContent sx={{ display: "flex", alignItems: "center", textAlign: "center", fontSize: theme.typography.h2.fontSize?.toString()}}>
+                    <SvgIcon component={PipesSvg} inheritViewBox={true} fontSize='inherit' />
+                    <Typography variant='h2' sx={{flexGrow: "1"}}>
+                    Круг
+                    </Typography>
+                    <SvgIcon component={PipesSvg} inheritViewBox={true} fontSize='inherit' />
+                  </CardContent>
+              </CardActionArea>
+            </Card>
+            <Popper
+              open={Boolean(pipesAnchor)}
+              anchorEl={pipesAnchor}
+              transition
             >
-              <Typography>Круг</Typography>
-            </Button>
-            <Popover
-              open={Boolean(roundAnchor)}
-              onClose={getPopoverOnCloseListener(setRoundAnchor)}
-              anchorEl={roundAnchor}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "center"
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "center"
-              }}
-            >
-              <List>
+                {({ TransitionProps }) => (
+                  <ClickAwayListener onClickAway={getPopoverOnCloseListener(setPipesAnchor)}>
+                  <Fade {...TransitionProps} timeout={350}>
+                  <List>
                 <ListItem>
                   <ListItemText primary="Стальной" />
                 </ListItem>
@@ -467,32 +654,34 @@ const App: FC = () => {
                   <ListItemText primary="Нержавеющий" />
                 </ListItem>
               </List>
-            </Popover>
-          </Grid>
+                  </Fade>
+                  </ClickAwayListener>
+                )}
+               
+            </Popper>
+          </div>
 
-          <Grid item xs >
-            <Button
-              size='large'
-              variant='contained'
-              startIcon={<SvgIcon component={HexagonSvg} inheritViewBox={true} />}
-              onClick={getPopoverOnClickListenerToSetAnchor(setHexatonAnchor)}
+          <div className="product">
+          <Card className='product-card products__product-card'>
+              <CardActionArea onClick={getPopoverOnClickListenerToSetAnchor(setPipesAnchor)}>
+                  <CardContent sx={{ display: "flex", alignItems: "center", textAlign: "center", fontSize: theme.typography.h2.fontSize?.toString()}}>
+                    <SvgIcon component={PipesSvg} inheritViewBox={true} fontSize='inherit' />
+                    <Typography variant='h2' sx={{flexGrow: "1"}}>
+                    Шестиугольник
+                    </Typography>
+                    <SvgIcon component={PipesSvg} inheritViewBox={true} fontSize='inherit' />
+                  </CardContent>
+              </CardActionArea>
+            </Card>
+            <Popper
+              open={Boolean(pipesAnchor)}
+              anchorEl={pipesAnchor}
+              transition
             >
-              <Typography>Шестиугольник</Typography>
-            </Button>
-            <Popover
-              open={Boolean(hexatonAnchor)}
-              onClose={getPopoverOnCloseListener(setHexatonAnchor)}
-              anchorEl={hexatonAnchor}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "center"
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "center"
-              }}
-            >
-              <List>
+                {({ TransitionProps }) => (
+                  <ClickAwayListener onClickAway={getPopoverOnCloseListener(setPipesAnchor)}>
+                  <Fade {...TransitionProps} timeout={350}>
+                  <List>
                 <ListItem>
                   <ListItemText primary="Стальной" />
                 </ListItem>
@@ -500,32 +689,34 @@ const App: FC = () => {
                   <ListItemText primary="Нержавеющий" />
                 </ListItem>
               </List>
-            </Popover>
-          </Grid>
+                  </Fade>
+                  </ClickAwayListener>
+                )}
+               
+            </Popper>
+          </div>
 
-          <Grid item xs >
-            <Button
-              size='large'
-              variant='contained'
-              startIcon={<SvgIcon component={SquareSvg} inheritViewBox={true} />}
-              onClick={getPopoverOnClickListenerToSetAnchor(setSquareAnchor)}
+          <div className="product">
+          <Card className='product-card products__product-card'>
+              <CardActionArea onClick={getPopoverOnClickListenerToSetAnchor(setPipesAnchor)}>
+                  <CardContent sx={{ display: "flex", alignItems: "center", textAlign: "center", fontSize: theme.typography.h2.fontSize?.toString()}}>
+                    <SvgIcon component={PipesSvg} inheritViewBox={true} fontSize='inherit' />
+                    <Typography variant='h2' sx={{flexGrow: "1"}}>
+                    Квадрат
+                    </Typography>
+                    <SvgIcon component={PipesSvg} inheritViewBox={true} fontSize='inherit' />
+                  </CardContent>
+              </CardActionArea>
+            </Card>
+            <Popper
+              open={Boolean(pipesAnchor)}
+              anchorEl={pipesAnchor}
+              transition
             >
-              <Typography>Квадрат</Typography>
-            </Button>
-            <Popover
-              open={Boolean(squareAnchor)}
-              onClose={getPopoverOnCloseListener(setSquareAnchor)}
-              anchorEl={squareAnchor}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "center"
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "center"
-              }}
-            >
-              <List>
+                {({ TransitionProps }) => (
+                  <ClickAwayListener onClickAway={getPopoverOnCloseListener(setPipesAnchor)}>
+                  <Fade {...TransitionProps} timeout={350}>
+                  <List>
                 <ListItem>
                   <ListItemText primary="Стальной" />
                 </ListItem>
@@ -533,32 +724,34 @@ const App: FC = () => {
                   <ListItemText primary="Нержавеющий" />
                 </ListItem>
               </List>
-            </Popover>
-          </Grid>
+                  </Fade>
+                  </ClickAwayListener>
+                )}
+               
+            </Popper>
+          </div>
 
-          <Grid item xs >
-            <Button
-              size='large'
-              variant='contained'
-              startIcon={<SvgIcon component={StripSvg} inheritViewBox={true} />}
-              onClick={getPopoverOnClickListenerToSetAnchor(setStripAnchor)}
+          <div className="product">
+          <Card className='product-card products__product-card'>
+              <CardActionArea onClick={getPopoverOnClickListenerToSetAnchor(setPipesAnchor)}>
+                  <CardContent sx={{ display: "flex", alignItems: "center", textAlign: "center", fontSize: theme.typography.h2.fontSize?.toString()}}>
+                    <SvgIcon component={PipesSvg} inheritViewBox={true} fontSize='inherit' />
+                    <Typography variant='h2' sx={{flexGrow: "1"}}>
+                    Полоса
+                    </Typography>
+                    <SvgIcon component={PipesSvg} inheritViewBox={true} fontSize='inherit' />
+                  </CardContent>
+              </CardActionArea>
+            </Card>
+            <Popper
+              open={Boolean(pipesAnchor)}
+              anchorEl={pipesAnchor}
+              transition
             >
-              <Typography>Полоса</Typography>
-            </Button>
-            <Popover
-              open={Boolean(stripAnchor)}
-              onClose={getPopoverOnCloseListener(setStripAnchor)}
-              anchorEl={stripAnchor}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "center"
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "center"
-              }}
-            >
-              <List>
+                {({ TransitionProps }) => (
+                  <ClickAwayListener onClickAway={getPopoverOnCloseListener(setPipesAnchor)}>
+                  <Fade {...TransitionProps} timeout={350}>
+                  <List>
                 <ListItem>
                   <ListItemText primary="Горячетканая" />
                 </ListItem>
@@ -566,32 +759,34 @@ const App: FC = () => {
                   <ListItemText primary="Холоднотканая" />
                 </ListItem>
               </List>
-            </Popover>
-          </Grid>
+                  </Fade>
+                  </ClickAwayListener>
+                )}
+               
+            </Popper>
+          </div>
 
-          <Grid item xs >
-            <Button
-              size='large'
-              variant='contained'
-              startIcon={<SvgIcon component={RailsSvg} inheritViewBox={true} />}
-              onClick={getPopoverOnClickListenerToSetAnchor(setRailsAnchor)}
+          <div className="product">
+          <Card className='product-card products__product-card'>
+              <CardActionArea onClick={getPopoverOnClickListenerToSetAnchor(setPipesAnchor)}>
+                  <CardContent sx={{ display: "flex", alignItems: "center", textAlign: "center", fontSize: theme.typography.h2.fontSize?.toString()}}>
+                    <SvgIcon component={PipesSvg} inheritViewBox={true} fontSize='inherit' />
+                    <Typography variant='h2' sx={{flexGrow: "1"}}>
+                    Рельсы
+                    </Typography>
+                    <SvgIcon component={PipesSvg} inheritViewBox={true} fontSize='inherit' />
+                  </CardContent>
+              </CardActionArea>
+            </Card>
+            <Popper
+              open={Boolean(pipesAnchor)}
+              anchorEl={pipesAnchor}
+              transition
             >
-              <Typography>Рельсы</Typography>
-            </Button>
-            <Popover
-              open={Boolean(railsAnchor)}
-              onClose={getPopoverOnCloseListener(setRailsAnchor)}
-              anchorEl={railsAnchor}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "center"
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "center"
-              }}
-            >
-              <List>
+                {({ TransitionProps }) => (
+                  <ClickAwayListener onClickAway={getPopoverOnCloseListener(setPipesAnchor)}>
+                  <Fade {...TransitionProps} timeout={350}>
+                  <List>
                 <ListItem>
                   <ListItemText primary="Крановые" />
                 </ListItem>
@@ -602,32 +797,34 @@ const App: FC = () => {
                   <ListItemText primary="Для узкой колеи" />
                 </ListItem>
               </List>
-            </Popover>
-          </Grid>
+                  </Fade>
+                  </ClickAwayListener>
+                )}
+               
+            </Popper>
+          </div>
 
-          <Grid item xs >
-            <Button
-              size='large'
-              variant='contained'
-              startIcon={<SvgIcon component={RoundSvg} inheritViewBox={true} />}
-              onClick={getPopoverOnClickListenerToSetAnchor(setForgingAnchor)}
+          <div className="product">
+          <Card className='product-card products__product-card'>
+              <CardActionArea onClick={getPopoverOnClickListenerToSetAnchor(setPipesAnchor)}>
+                  <CardContent sx={{ display: "flex", alignItems: "center", textAlign: "center", fontSize: theme.typography.h2.fontSize?.toString()}}>
+                    <SvgIcon component={PipesSvg} inheritViewBox={true} fontSize='inherit' />
+                    <Typography variant='h2' sx={{flexGrow: "1"}}>
+                    Поковка
+                    </Typography>
+                    <SvgIcon component={PipesSvg} inheritViewBox={true} fontSize='inherit' />
+                  </CardContent>
+              </CardActionArea>
+            </Card>
+            <Popper
+              open={Boolean(pipesAnchor)}
+              anchorEl={pipesAnchor}
+              transition
             >
-              <Typography>Поковка</Typography>
-            </Button>
-            <Popover
-              open={Boolean(forgingAnchor)}
-              onClose={getPopoverOnCloseListener(setForgingAnchor)}
-              anchorEl={forgingAnchor}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "center"
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "center"
-              }}
-            >
-              <List>
+                {({ TransitionProps }) => (
+                  <ClickAwayListener onClickAway={getPopoverOnCloseListener(setPipesAnchor)}>
+                  <Fade {...TransitionProps} timeout={350}>
+                  <List>
                 <ListItem>
                   <ListItemText primary="Круглая" />
                 </ListItem>
@@ -635,10 +832,14 @@ const App: FC = () => {
                   <ListItemText primary="Квадратная" />
                 </ListItem>
               </List>
-            </Popover>
-          </Grid>
+                  </Fade>
+                  </ClickAwayListener>
+                )}
+               
+            </Popper>
+          </div>
 
-          <Grid item xs >
+          <div className="product">
             <Button
               size='large'
               variant='contained'
@@ -675,28 +876,40 @@ const App: FC = () => {
                 </ListItem>
               </List>
             </Popover>
-          </Grid>
-        </Grid> 
-        <Typography className={`header2 ${pageName}__header2`} variant='h2'>
-          Контакты
-        </Typography>
-        <div className={`phone-numbers ${pageName}__phone-numbers`}>
-          <Link href="tel:+79068666065" className='phone-number phone-numbers__phone-number' variant='body1'>
-            +79068666065
-          </Link>
-          <Link href="tel:+79090893378" className='phone-number phone-numbers__phone-number' variant='body1'>
-            +79090893378
-          </Link>
-        </div>
-        <div className={`emails ${pageName}__emails`}>
-          <Link href='mailto:Omarova.spg@gmail.com' className='email emails__email' variant='body1'>
-            Omarova.spg@gmail.com
-          </Link>
-        </div>
-      </main>
-    </div>
-    </ThemeProvider>
-  );
-}
+          </div> */}
+					</Stack>
+					<Typography className={`header2 ${pageName}__header2`} variant="h2">
+						Контакты
+					</Typography>
+					<div className={`phone-numbers ${pageName}__phone-numbers`}>
+						<Link
+							href="tel:+79068666065"
+							className="phone-number phone-numbers__phone-number"
+							variant="body1"
+						>
+							+79068666065
+						</Link>
+						<Link
+							href="tel:+79090893378"
+							className="phone-number phone-numbers__phone-number"
+							variant="body1"
+						>
+							+79090893378
+						</Link>
+					</div>
+					<div className={`emails ${pageName}__emails`}>
+						<Link
+							href="mailto:Omarova.spg@gmail.com"
+							className="email emails__email"
+							variant="body1"
+						>
+							Omarova.spg@gmail.com
+						</Link>
+					</div>
+				</main>
+			</div>
+		</ThemeProvider>
+	);
+};
 
 export default App;
